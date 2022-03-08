@@ -3,8 +3,9 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 
-const UserRegistration = () => {
+const UserRegistration = (props) => {
 const [formData, setFormData] = useState({email:'', password:'', password2:''})
+
 const handleChange = (e) =>{
 	const { name, value } = e.target;
 	setFormData(prevState => ({
@@ -22,13 +23,19 @@ const handleSubmit = () =>{
 			}
 		  })
 		  .then(function (response) {
-			console.log(response);
+				// if (response.data.status ==='created'){
+					console.log(response);
+					props.handleSuccessfulAuth(response.data)
+					console.log(response.data);
+				// }
 		  })
+
 		  .catch(function (error) {
 			console.log(error);
 		  });
 	}
 }
+
 
   return (
 	< >

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 
-const UserLogin = () => {
+const UserLogin = (props) => {
 const [formData, setFormData] = useState({email:'', password:''})
 
 const handleChange = (e) =>{
@@ -18,12 +18,17 @@ const handleSubmit = () =>{
 		axios.post('http://localhost:8000/users/sign_in', {
 			user:{
 				email:formData.email,
-				password:formData.password
+				password:formData.password,
 			}
 		  })
 		  .then(function (response) {
-			console.log(response);
+				// if (response.data.status ==='created'){
+					console.log(response);
+					props.handleSuccessfulAuth(response.data)
+					console.log(response.data);
+				// }
 		  })
+
 		  .catch(function (error) {
 			console.log(error);
 		  });
