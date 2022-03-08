@@ -3,8 +3,9 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 
-const UserRegistration = () => {
-const [formData, setFormData] = useState({email:'', password:'', password2:''})
+const UserLogin = () => {
+const [formData, setFormData] = useState({email:'', password:''})
+
 const handleChange = (e) =>{
 	const { name, value } = e.target;
 	setFormData(prevState => ({
@@ -14,11 +15,10 @@ const handleChange = (e) =>{
 }
 const handleSubmit = () =>{
 	if (!(formData.email == '' & formData.password == '')) {
-		axios.post('http://localhost:8000/users', {
+		axios.post('http://localhost:8000/users/sign_in', {
 			user:{
 				email:formData.email,
-				password:formData.password,
-				password_confirmation: formData.password2
+				password:formData.password
 			}
 		  })
 		  .then(function (response) {
@@ -32,7 +32,7 @@ const handleSubmit = () =>{
 
   return (
 	< >
-	<h1 className='text-center mt-5'>User Registration</h1>
+	<h1 className='text-center mt-5'>User Sign In</h1>
 		<form className='container'>
 		<div className="form-group mt-3">
 			<label htmlFor="exampleInputEmail1">Email address</label>
@@ -45,10 +45,7 @@ const handleSubmit = () =>{
 			<input type="password" className="form-control" id="exampleInputPassword1" name='password' placeholder="Password" onChange={handleChange}
 			/>
 		</div>
-		<div className="form-group mt-3">
-			<label htmlFor="exampleInputPassword1">Password Confirmation</label>
-			<input type="password" className="form-control" id="exampleInputPassword2" name='password2' placeholder="Password" onChange={handleChange} />
-		</div>
+	
 
 		<button type="button" className="btn btn-primary mt-3 text-" onClick={handleSubmit}>Submit</button>
 		</form>
@@ -58,4 +55,4 @@ const handleSubmit = () =>{
 
 }
 
-export default UserRegistration
+export default UserLogin
